@@ -17,9 +17,4 @@ class PrettyPrintJsonTest {
         val actual = PrettyPrintJson.encodeToString(input)
         assertEquals(expected, actual)
     }
-
-    @Test
-    fun `oh noes! a failing test`() {
-        assertEquals(1, 2)
-    }
 }
