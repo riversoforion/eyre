@@ -11,6 +11,8 @@ val PrettyPrintJson = Json {
     prettyPrint = true
 }
 
+class Dummy {}
+
 fun main() {
     val message = Message(
         topic = "Kotlin/Native",
