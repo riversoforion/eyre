@@ -1,0 +1,21 @@
+name: Check Code
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Gradle Environment
+        uses: ./.github/actions/gradle-base.yaml
+      - name: Check code formatting
+        run: ./gradlew spotlessCheck
+
+  run-unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Gradle Environment
+        uses: ./.github/actions/gradle-base.yaml
+      - name: Run unit tests
+        run: ./gradlew nativeTest --stacktrace

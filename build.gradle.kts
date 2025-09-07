@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.detekt)
 }
 
-group = "me.user"
-version = "1.0-SNAPSHOT"
+group = "com.riversoforion.eyre"
+version = "0.0.1"
 
 repositories {
     mavenCentral()
@@ -36,4 +37,10 @@ kotlin {
             implementation(libs.kotlinxSerializationJson)
         }
     }
+}
+
+detekt {
+    toolVersion = "1.23.8"
+    config.setFrom(file("$rootDir/detekt.yaml"))
+    buildUponDefaultConfig = true
 }
