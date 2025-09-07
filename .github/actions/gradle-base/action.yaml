@@ -1,7 +1,5 @@
 name: Setup Gradle Environment
 description: Checks out repository, sets up JDK 21, and installs Gradle.
-inputs:
-outputs:
 runs:
   using: "composite"
   steps:
