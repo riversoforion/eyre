@@ -45,14 +45,3 @@ detekt {
     config.setFrom(file("$rootDir/detekt.yaml"))
     source.setFrom(files("src"))
 }
-
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
-    reports.md {
-        required.set(true)
-        outputLocation.set(file("build/reports/detekt.md"))
-    }
-    reports.txt {
-        required.set(true)
-        outputLocation.set(file("build/reports/detekt.txt"))
-    }
-}
