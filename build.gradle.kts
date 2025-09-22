@@ -28,42 +28,18 @@ kotlin {
     // Configure which native targets to build, based on current platform.
     val hostOs = System.getProperty("os.name")
     val nativeTargets = when {
-        hostOs == "Linux" -> listOf(linuxArm64, linuxX64)
-        hostOs == "Mac OS X" -> listOf(macosArm64, macosX64)
+        hostOs == "Linux"            -> listOf(linuxArm64, linuxX64)
+        hostOs == "Mac OS X"         -> listOf(macosArm64, macosX64)
         hostOs.startsWith("Windows") -> listOf(windows)
-        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
+        else                         -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
-    // Define dependencies between source sets.
-    // We declare an intermediate source set called posix, which
-    // the Linux and macOS sources extend, but Windows does not.
-    // For further details, see:
+    // For now, stick with the default "common" source set. We can also define platform-specific source sets, though
+    // that introduces a lot of complexity. See early revisions of this file for an example. For more details, see:
     // https://kotlinlang.org/docs/multiplatform-advanced-project-structure.html#declaring-custom-source-sets
-    sourceSets {
-        nativeMain {
-            dependsOn(commonMain.get())
-            dependencies {
-                implementation(libs.kotlinxSerializationJson)
-            }
-        }
-        val posixMain by creating {
-            dependsOn(nativeMain.get())
-        }
-        @Suppress("UnusedPrivateProperty", "unused")
-        val macosArm64Main by getting {
-            dependsOn(posixMain)
-        }
-        @Suppress("UnusedPrivateProperty", "unused")
-        val macosX64Main by getting {
-            dependsOn(posixMain)
-        }
-        @Suppress("UnusedPrivateProperty", "unused")
-        val linuxArm64Main by getting {
-            dependsOn(posixMain)
-        }
-        @Suppress("UnusedPrivateProperty", "unused")
-        val linuxX64Main by getting {
-            dependsOn(posixMain)
+    dependencies {
+        sourceSets["commonMain"].dependencies {
+            implementation(libs.kotlinxSerializationJson)
         }
     }
 
@@ -106,7 +82,8 @@ kotlin {
                     logger.lifecycle("Packaged ${archiveFile.get().asFile} containing eyre.exe")
                 }
             }
-        } else {
+        }
+        else {
             tasks.register<Tar>(taskName) {
                 group = "distribution"
                 val exec = executables[it] ?: throw GradleException("No executable for target ${it.name}")

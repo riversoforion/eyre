@@ -31,4 +31,4 @@ jobs:
       - name: Setup Gradle Environment
         uses: ./.github/actions/gradle-base
       - name: Run unit tests
-        run: ./gradlew nativeTest --stacktrace
+        run: ./gradlew allTests --stacktrace
