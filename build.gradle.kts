@@ -25,9 +25,17 @@ kotlin {
     val macosX64 = macosX64()
     val windows = mingwX64("windows")
 
+    // Full cross-compilation seems to work, at least on Mac
+    // TODO Experiment on Linux host
+    // If it works, then we can enable all targets unconditionally
+    // Update the release task to build for all targets on a single pass
+    // Create new OS-specific build tasks that can be used by a local dev environment
+
     // Configure which native targets to build, based on current platform.
     val hostOs = System.getProperty("os.name")
+    val isCi = System.getenv("CI").toBoolean()
     val nativeTargets = when {
+        isCi                         -> listOf(linuxArm64, linuxX64, macosArm64, macosX64, windows)
         hostOs == "Linux"            -> listOf(linuxArm64, linuxX64)
         hostOs == "Mac OS X"         -> listOf(macosArm64, macosX64)
         hostOs.startsWith("Windows") -> listOf(windows)
@@ -37,9 +45,14 @@ kotlin {
     // For now, stick with the default "common" source set. We can also define platform-specific source sets, though
     // that introduces a lot of complexity. See early revisions of this file for an example. For more details, see:
     // https://kotlinlang.org/docs/multiplatform-advanced-project-structure.html#declaring-custom-source-sets
-    dependencies {
-        sourceSets["commonMain"].dependencies {
-            implementation(libs.kotlinxSerializationJson)
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation(libs.kotlinxSerializationJson)
+            }
+        }
+        commonTest {
+            dependencies {}
         }
     }
 
