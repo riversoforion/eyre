@@ -1,0 +1,23 @@
+name: Build Artifacts
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  publish-artifacts:
+    name: Build and Publish Artifacts
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - name: Setup Gradle Environment
+        uses: ./.github/actions/gradle-base
+      - name: Build Artifacts
+        run: ./gradlew clean release --stacktrace
+      - name: Upload Artifacts
+        uses: softprops/action-gh-release@6cbd405e2c4e67a21c47fa9e383d020e4e28b836 # v2.3.3
+        with:
+          files: build/dist/*
