@@ -81,6 +81,9 @@ kotlin {
                 from(exec.outputFile) {
                     rename { "eyre.exe" }
                 }
+                from(projectDir.resolve("etc/license")) {
+                    into("license")
+                }
                 destinationDirectory.set(distDir)
                 archiveFileName.set("eyre-$platform.zip")
                 doLast {
@@ -101,6 +104,11 @@ kotlin {
                         group { read = true; execute = true }
                         other { read = true; execute = true }
                     }
+                }
+                val licenseFiles = arrayOf("kotlin_LICENSE.txt", "libbacktrace_LICENSE.txt", "unicode_LICENSE.txt")
+                val licenseDir = projectDir.resolve("etc/license")
+                from(licenseFiles.map { file -> licenseDir.resolve(file) }) {
+                    into("license")
                 }
                 destinationDirectory.set(distDir)
                 archiveFileName.set("eyre-$platform.tar.gz")
