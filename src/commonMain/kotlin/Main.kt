@@ -1,20 +1,13 @@
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
+import com.github.ajalt.clikt.command.main
+import com.github.ajalt.clikt.core.subcommands
+import com.riversoforion.eyre.cmd.AddCommand
+import com.riversoforion.eyre.cmd.EyreCommand
+import kotlinx.coroutines.runBlocking
 
-fun main() {
-    val message = Message(
-        topic = "Kotlin/Native",
-        content = "Hello!"
-    )
-    println(PrettyPrintJson.encodeToString(message))
-}
-
-@Serializable
-data class Message(
-    val topic: String,
-    val content: String,
-)
-
-val PrettyPrintJson = Json {
-    prettyPrint = true
+fun main(args: Array<String>) {
+    runBlocking {
+        EyreCommand()
+            .subcommands(AddCommand())
+            .main(args)
+    }
 }
