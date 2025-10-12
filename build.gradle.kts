@@ -41,6 +41,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.kotlinxSerializationJson)
+                implementation(libs.cliktCli)
             }
         }
         commonTest {
