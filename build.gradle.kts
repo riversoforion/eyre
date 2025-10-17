@@ -40,14 +40,19 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(libs.kotlinxSerializationJson)
                 implementation(libs.kotlinxCoroutinesCore)
+                implementation(libs.kotlinxDatetimeLib)
+                implementation(libs.kotlinxSerializationJson)
                 implementation(libs.cliktCli)
             }
         }
         commonTest {
             dependencies {}
         }
+    }
+
+    compilerOptions {
+        optIn.add("kotlin.time.ExperimentalTime")
     }
 
     // Configure the binary executables for all activated native targets
