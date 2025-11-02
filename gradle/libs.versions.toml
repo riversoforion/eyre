@@ -4,14 +4,24 @@ kotlinxCoroutines = "1.10.2"
 kotlinxDatetime = "0.7.1"
 kotlinxSerialization = "1.9.0"
 clikt = "5.0.1"
+# Testing
+kotest = "6.0.4"
+# Plugins
+detekt = "1.23.8"
+googleKsp = "2.2.20-2.0.4"
 
 [libraries]
 kotlinxCoroutinesCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinxDatetimeLib = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinxSerializationJson = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 cliktCli = { group = "com.github.ajalt.clikt", name = "clikt", version.ref = "clikt" }
+# Testing
+kotestCoreAssertions = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
+kotestEngine = { group = "io.kotest", name = "kotest-framework-engine", version.ref = "kotest" }
 
 [plugins]
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.8" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+kotest = { id = "io.kotest", version.ref = "kotest" }
+googleKsp = { id = "com.google.devtools.ksp", version.ref = "googleKsp" }
