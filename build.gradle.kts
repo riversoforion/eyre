@@ -1,4 +1,3 @@
-import org.gradle.internal.classpath.Instrumented.systemProperty
 import org.jetbrains.kotlin.gradle.tasks.KotlinTest
 import org.jetbrains.kotlin.konan.target.Family
 
@@ -7,11 +6,12 @@ plugins {
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.detekt)
     alias(libs.plugins.kotest)
+    alias(libs.plugins.mokkery)
     alias(libs.plugins.googleKsp)
 }
 
 group = "com.riversoforion.eyre"
-version = "0.0.1"
+version = "0.1.0"
 
 repositories {
     mavenCentral()
@@ -48,6 +48,7 @@ kotlin {
                 implementation(libs.kotlinxDatetimeLib)
                 implementation(libs.kotlinxSerializationJson)
                 implementation(libs.cliktCli)
+                implementation(libs.appDirsLib)
             }
         }
         commonTest {
@@ -55,6 +56,7 @@ kotlin {
                 implementation(kotlin("test"))
                 implementation(libs.kotestCoreAssertions)
                 implementation(libs.kotestEngine)
+                implementation(libs.assertkCore)
             }
         }
     }
