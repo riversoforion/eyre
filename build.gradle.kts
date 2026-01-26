@@ -1,13 +1,17 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinTest
 import org.jetbrains.kotlin.konan.target.Family
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.kotest)
+    alias(libs.plugins.mokkery)
+    alias(libs.plugins.googleKsp)
 }
 
 group = "com.riversoforion.eyre"
-version = "0.0.1"
+version = "0.1.0"
 
 repositories {
     mavenCentral()
@@ -40,12 +44,29 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(libs.kotlinxCoroutinesCore)
+                implementation(libs.kotlinxDatetimeLib)
                 implementation(libs.kotlinxSerializationJson)
+                implementation(libs.cliktCli)
+                implementation(libs.appDirsLib)
             }
         }
         commonTest {
-            dependencies {}
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.kotestCoreAssertions)
+                implementation(libs.kotestEngine)
+                implementation(libs.assertkCore)
+            }
         }
+    }
+
+    compilerOptions {
+        optIn.add("kotlin.time.ExperimentalTime")
+    }
+
+    tasks.withType<KotlinTest>().configureEach {
+        failOnNoDiscoveredTests = false
     }
 
     // Configure the binary executables for all activated native targets

@@ -1,11 +1,33 @@
 [versions]
-kotlin = "2.2.20"
+kotlin = "2.3.0"
+kotlinxCoroutines = "1.10.2"
+kotlinxDatetime = "0.7.1"
 kotlinxSerialization = "1.9.0"
+clikt = "5.0.3"
+appDirs = "2.0.0"
+# Testing
+kotest = "6.1.1"
+mokkery = "3.1.1"
+assertk = "0.28.1"
+# Plugins
+detekt = "1.23.8"
+googleKsp = "2.2.20-2.0.4"
 
 [libraries]
-kotlinxSerializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+kotlinxCoroutinesCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinxDatetimeLib = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
+kotlinxSerializationJson = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+cliktCli = { group = "com.github.ajalt.clikt", name = "clikt", version.ref = "clikt" }
+appDirsLib = { group = "ca.gosyer", name = "kotlin-multiplatform-appdirs", version.ref = "appDirs" }
+# Testing
+kotestCoreAssertions = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
+kotestEngine = { group = "io.kotest", name = "kotest-framework-engine", version.ref = "kotest" }
+assertkCore = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "assertk" }
 
 [plugins]
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.8" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+kotest = { id = "io.kotest", version.ref = "kotest" }
+mokkery = { id = "dev.mokkery", version.ref = "mokkery" }
+googleKsp = { id = "com.google.devtools.ksp", version.ref = "googleKsp" }
